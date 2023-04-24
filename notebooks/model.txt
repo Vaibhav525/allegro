@@ -1,0 +1,58 @@
+RescaleOutput(
+  (model): GradientOutput(
+    (func): SequentialGraphNetwork(
+      (one_hot): OneHotAtomEncoding()
+      (radial_basis): RadialBasisEdgeEncoding(
+        (basis): NormalizedBasis(
+          (basis): BesselBasis()
+        )
+        (cutoff): PolynomialCutoff()
+      )
+      (spharm): SphericalHarmonicEdgeAttrs(
+        (sh): SphericalHarmonics()
+      )
+      (allegro): Allegro_Module(
+        (latents): ModuleList(
+          (0): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+          (1): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+        )
+        (env_embed_mlps): ModuleList(
+          (0): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+          (1): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+        )
+        (tps): ModuleList(
+          (0): RecursiveScriptModule(original_name=GraphModule)
+          (1): RecursiveScriptModule(original_name=GraphModule)
+        )
+        (linears): ModuleList(
+          (0): RecursiveScriptModule(original_name=GraphModule)
+          (1): RecursiveScriptModule(original_name=GraphModule)
+        )
+        (env_linears): ModuleList(
+          (0): Identity()
+          (1): Identity()
+        )
+        (_env_weighter): MakeWeightedChannels()
+        (final_latent): ScalarMLPFunction(
+          (_forward): RecursiveScriptModule(original_name=GraphModule)
+        )
+      )
+      (edge_eng): ScalarMLP(
+        (_module): ScalarMLPFunction(
+          (_forward): RecursiveScriptModule(original_name=GraphModule)
+        )
+      )
+      (edge_eng_sum): EdgewiseEnergySum()
+      (per_species_rescale): PerSpeciesScaleShift()
+      (total_energy_sum): AtomwiseReduce()
+    )
+  )
+)

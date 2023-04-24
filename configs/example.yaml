@@ -10,7 +10,9 @@
 # run_name contains logfiles and saved models
 # process contains processed data sets
 # if 'root'/'run_name' exists, 'root'/'run_name'_'year'-'month'-'day'-'hour'-'min'-'s' will be used instead.
-root: results/aspirin
+#root: results/aspirin
+root: /home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin
+
 run_name: example
 
 # model initialization seed
@@ -118,7 +120,8 @@ edge_eng_mlp_initialization: uniform
 # npz option
 dataset: npz                                                                       # type of data set, can be npz or ase
 dataset_url: http://quantum-machine.org/gdml/data/npz/aspirin_ccsd.zip             # url to download the npz. optional
-dataset_file_name: ./benchmark_data/aspirin_ccsd-train.npz                         # path to data set file
+#dataset_file_name: ./benchmark_data/aspirin_ccsd-train.npz                         # path to data set file
+dataset_file_name: /home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin_ccsd-train.npz                     # path to data set file
 key_mapping:
   z: atomic_numbers                                                                # atomic species, integers
   E: total_energy                                                                  # total potential eneriges to train to
