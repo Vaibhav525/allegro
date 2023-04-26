@@ -1,0 +1,134 @@
+(Pdb) trainer.__dict__
+{'_initialized': False, 'cumulative_wall': 0, 'model': RescaleOutput(
+  (model): GradientOutput(
+    (func): SequentialGraphNetwork(
+      (one_hot): OneHotAtomEncoding()
+      (radial_basis): RadialBasisEdgeEncoding(
+        (basis): NormalizedBasis(
+          (basis): BesselBasis()
+        )
+        (cutoff): PolynomialCutoff()
+      )
+      (spharm): SphericalHarmonicEdgeAttrs(
+        (sh): SphericalHarmonics()
+      )
+      (allegro): Allegro_Module(
+        (latents): ModuleList(
+          (0): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+          (1): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+        )
+        (env_embed_mlps): ModuleList(
+          (0): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+          (1): ScalarMLPFunction(
+            (_forward): RecursiveScriptModule(original_name=GraphModule)
+          )
+        )
+        (tps): ModuleList(
+          (0): RecursiveScriptModule(original_name=GraphModule)
+          (1): RecursiveScriptModule(original_name=GraphModule)
+        )
+        (linears): ModuleList(
+          (0): RecursiveScriptModule(original_name=GraphModule)
+          (1): RecursiveScriptModule(original_name=GraphModule)
+        )
+        (env_linears): ModuleList(
+          (0): Identity()
+          (1): Identity()
+        )
+        (_env_weighter): MakeWeightedChannels()
+        (final_latent): ScalarMLPFunction(
+          (_forward): RecursiveScriptModule(original_name=GraphModule)
+        )
+      )
+      (edge_eng): ScalarMLP(
+        (_module): ScalarMLPFunction(
+          (_forward): RecursiveScriptModule(original_name=GraphModule)
+        )
+      )
+      (edge_eng_sum): EdgewiseEnergySum()# E_i ? ---> apply gat here? https://pytorch-geometric.readthedocs.io/en/latest/_modules/torch_geometric/nn/conv/gat_conv.html#GATConv
+      (per_species_rescale): PerSpeciesScaleShift()
+      (total_energy_sum): AtomwiseReduce()
+    )
+  )
+), 'model_builders': ['allegro.model.Allegro', 'PerSpeciesRescale', 'ForceOutput', 'RescaleEnergyEtc'], 'device': 'cuda', 'seed': 123456, 'dataset_seed': 123456, 'loss_coeffs': {'forces': 1.0, 'total_energy': [1.0, 'PerAtomMSELoss']}, 'train_on_keys': ['forces', 'total_energy'], 'metrics_components': None, 'metrics_key': 'validation_loss', 'early_stopping': None, 'early_stopping_kwargs': None, 'max_epochs': 1000000, 'learning_rate': 0.001, 'lr_scheduler_name': 'ReduceLROnPlateau', 'lr_scheduler_kwargs': None, 'optimizer_name': 'Adam', 'optimizer_kwargs': None, 'max_gradient_norm': inf, 'use_ema': True, 'ema_decay': 0.99, 'ema_use_num_updates': True, 'exclude_keys': [], 'batch_size': 5, 'validation_batch_size': 5, 'shuffle': True, 'n_train': 950, 'n_val': 50, 'dataloader_num_workers': 0, 'train_idcs': tensor([265, 344, 176, 394, 844, 887, 697, 510, 131, 867, 879, 717, 504,   5,
+        646, 840, 763, 340, 345, 602, 734, 262, 816, 111, 218, 721,  80, 517,
+        390, 214, 156, 274, 453, 782, 181, 435, 220, 506,  16, 865,  45, 148,
+        325, 364, 831, 237, 897, 222, 776, 550, 632, 857, 235, 622, 228, 149,
+        588, 138, 333, 793, 110, 811, 204, 561, 788, 443, 783, 431,  86, 954,
+        481, 905, 487, 616, 908, 250, 874, 422, 363, 876, 754, 225,  42, 190,
+         11, 968, 633,  90, 742, 258, 648, 200, 350, 643, 578, 851, 921, 326,
+        630, 700, 412,  55, 413, 755, 964, 145, 216, 906, 377, 944, 889, 177,
+        883, 160, 397, 828,   2, 737,  30, 541, 552, 706, 979, 753, 543, 242,
+        279,  14, 100, 660, 680, 420, 542,  22, 423, 838, 494, 644, 507, 135,
+        926, 164, 939, 430, 236, 476, 155, 559, 386, 104, 869, 227, 527, 452,
+        382, 736, 116, 419, 809, 142, 266, 724, 980, 418, 764, 683, 812, 827,
+        497, 761, 978, 316, 292, 885, 675, 330, 536, 929, 544, 107, 670, 101,
+        584, 668, 963, 208, 859, 893, 221, 955, 769, 795, 425, 590, 836, 839,
+        165,  21, 411, 314, 833, 863, 480, 821,  82, 312, 820, 899, 546, 629,
+         94, 778,  87, 332, 681, 567, 558, 693,  31, 505,  63, 464, 767, 861,
+        511, 989, 403, 239, 407, 600, 284, 328, 985, 269, 495, 424, 591, 474,
+        447, 286, 374, 792, 171,  53, 858, 886, 526, 656, 450, 554, 234, 529,
+        818, 562, 289, 716, 878, 940, 674, 627, 913, 896,  83, 626, 226,  97,
+         99, 197, 534, 456, 750, 275,  67, 196, 565, 673, 915, 525, 520, 713,
+        749,  54, 231, 121, 758, 975, 429, 997, 246, 137, 719, 751, 260, 824,
+        281, 688, 991, 455, 920, 324, 640, 834, 860, 132,  15, 446, 229, 356,
+        923, 457, 406, 725, 343, 937, 409, 813, 146, 119, 696, 539, 396, 263,
+        416, 801, 393, 941, 322, 273, 845, 337, 516, 655, 388, 173, 636, 995,
+        294, 790, 707, 297, 694, 182, 574, 291, 650, 261, 933,  47, 303,  32,
+        509, 361, 448, 807, 248, 938, 791, 841, 854, 593,  41, 461, 931, 471,
+        667, 385, 740, 884,  43, 493, 981, 300, 489, 744, 278, 514, 352, 771,
+        935, 620, 796, 399, 817, 428, 315, 972, 994, 710,  78, 295, 402, 880,
+        547, 572, 395, 436, 129, 598, 695, 613, 787, 689,  26, 678, 163, 617,
+        267, 669, 619, 599, 283, 475, 519, 499,   3, 907, 150, 877, 577, 362,
+         25, 663, 802, 308, 779, 500, 953,  66, 748, 320,  17, 998, 247, 852,
+        752,  73, 354, 679, 610, 785, 882, 917, 904, 434, 301,  35,  13, 943,
+        556, 282,   0, 276, 784, 459, 210,  95,  28, 621, 614, 353,  50, 188,
+        727, 492, 685, 956,  48, 513,   8, 439, 702, 551, 217, 570, 922, 254,
+        206, 442, 606, 125, 106, 120, 126, 892, 677, 154, 521, 336, 387, 967,
+        259, 759, 245, 919, 996, 317, 410, 925,  76, 848, 607, 398, 479, 490,
+        733, 603, 665, 391, 153, 672, 794, 151, 654, 853, 201, 729, 651, 139,
+         81, 366, 117, 215, 662, 483, 405, 781, 184, 735, 855, 187, 485,  62,
+        596, 376, 369, 798, 458, 962, 875, 113, 440, 731,  40, 699,  56, 569,
+        947, 982, 109, 522, 212,  89, 360, 277, 531, 186, 272, 799, 909, 568,
+        823, 976, 432, 241, 647, 745, 657, 642, 302, 832, 179, 537, 183, 167,
+        775, 800, 383,  96, 671, 114, 687, 856, 692, 961, 157, 449, 661,  59,
+         92, 209, 451, 930, 313, 579, 401, 348, 307, 306, 898, 835, 309, 271,
+        528, 850, 195, 608, 990,  77, 786, 115, 255, 545, 950, 203, 756, 571,
+         91, 970, 469, 287, 957, 757, 335, 942,  12, 557,  98, 895, 634,  58,
+        592, 587, 372, 249,  39, 843, 189, 628,  34, 375, 984, 288, 207,  84,
+        523, 339, 639, 789, 535,  49, 169, 866, 732, 743, 408, 718, 172, 826,
+        595, 498, 765, 230, 503, 952, 946, 191, 264, 370, 468, 819, 243, 684,
+        949, 122,  29, 305, 140,  33, 502, 637, 180,  75, 704,  27,  18, 185,
+        244, 701, 631, 202, 338, 460, 373, 709, 741, 974, 934, 722, 698, 586,
+        983, 969, 576,  71, 868, 463, 992, 426, 609, 712, 623, 958, 605, 192,
+        530, 870, 472, 144, 477, 118, 112, 342,  68, 873, 739, 611, 618, 797,
+        666, 625, 738, 466, 720, 496, 147, 777, 170, 134, 161, 690, 488, 803,
+        924, 888, 508, 760, 213, 351, 512, 597, 773, 780, 730, 563, 105, 224,
+        548, 986,  70, 357, 914, 615, 143, 814, 936,   7, 484, 659, 766, 649,
+        932, 321, 566, 219, 205,  88, 532, 299, 553, 560, 341, 238, 903, 676,
+        404, 705,  74, 421, 847, 367, 864, 846, 473, 645,  10, 714, 918, 252,
+        304, 891, 518, 589, 977, 682, 723, 524, 581, 359, 268, 379, 102,  61,
+        251, 329, 158, 825, 296, 515, 168,  23, 585,  20,  24, 901, 770,  72,
+        414, 842, 804, 123, 108, 211, 462, 664, 166, 849, 960, 223, 331, 965,
+        355, 890, 872, 881, 486, 319,   4, 815,  93, 601, 293, 971, 911, 298,
+        772, 575,  69, 624,   1,  65, 951, 427, 253, 174, 746,  36, 910, 726,
+         19, 346, 133, 652, 318, 482, 715, 708, 762, 371, 594, 193, 467, 987,
+        580, 691, 540, 194, 653, 310, 152, 127, 437,  38, 285, 368, 159, 604,
+         60, 347, 768, 555, 311, 837, 327, 445, 323, 384, 948, 400, 747,   9,
+        232, 728,  44,  37, 916, 927, 912, 378, 583, 136, 810, 392,  79, 128,
+        822, 381, 711, 900, 806, 256, 501, 141, 871, 993, 549, 658, 433, 130,
+         57, 438, 703, 533, 966, 491, 380,  51,  52, 389, 635, 945]), 'val_idcs': tensor([349, 805, 444, 290, 582, 334, 902, 808, 257, 641, 365,  64,  85, 415,
+        686, 358, 894,  46, 199, 564, 988, 240, 270, 441, 178, 470, 862, 538,
+        959, 928, 280, 233, 198, 124, 454, 774, 478, 830, 465, 638, 162, 103,
+        612, 973, 829, 417, 175, 573, 999,   6]), 'train_val_split': 'random', 'init_callbacks': [], 'end_of_epoch_callbacks': [], 'end_of_batch_callbacks': [], 'end_of_train_callbacks': [], 'final_callbacks': [], 'log_batch_freq': 1, 'log_epoch_freq': 1, 'save_checkpoint_freq': -1, 'save_ema_checkpoint_freq': -1, 'report_init_validation': True, 'verbose': 'debug', 'ema': None, 'output': <nequip.utils.output.Output object at 0x2afc460811f0>, 'logfile': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/log', 'epoch_log': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/metrics_epoch.csv', 'init_epoch_log': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/metrics_initialization.csv', 'batch_log': {'training': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/metrics_batch_train.csv', 'validation': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/metrics_batch_val.csv'}, 'best_model_path': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/best_model.pth', 'last_model_path': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/last_model.pth', 'trainer_save_path': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/trainer.pth', 'config_path': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin/example/config.yaml', 'dataset_rng': <torch._C.Generator object at 0x2afc46093790>, 'torch_device': device(type='cuda'), 'kwargs': {'_jit_bailout_depth': 2, '_jit_fusion_strategy': [('DYNAMIC', 3)], 'root': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin', 'run_name': 'example', 'wandb': False, 'wandb_project': 'aspirin', 'dataset_statistics_stride': 1, 'default_dtype': 'float32', 'allow_tf32': False, 'model_debug_mode': False, 'equivariance_test': False, 'grad_anomaly_mode': False, 'append': True, 'r_max': 6.0, 'avg_num_neighbors': 17.211328506469727, 'BesselBasis_trainable': True, 'PolynomialCutoff_p': 6, 'l_max': 2, 'parity': 'o3_full', 'num_layers': 2, 'env_embed_multiplicity': 64, 'embed_initial_edge': True, 'two_body_latent_mlp_latent_dimensions': [128, 256, 512, 1024], 'two_body_latent_mlp_nonlinearity': 'silu', 'two_body_latent_mlp_initialization': 'uniform', 'latent_mlp_latent_dimensions': [1024, 1024, 1024], 'latent_mlp_nonlinearity': 'silu', 'latent_mlp_initialization': 'uniform', 'latent_resnet': True, 'env_embed_mlp_latent_dimensions': [], 'env_embed_mlp_nonlinearity': None, 'env_embed_mlp_initialization': 'uniform', 'edge_eng_mlp_latent_dimensions': [128], 'edge_eng_mlp_nonlinearity': None, 'edge_eng_mlp_initialization': 'uniform', 'dataset': 'npz', 'dataset_url': 'http://quantum-machine.org/gdml/data/npz/aspirin_ccsd.zip', 'dataset_file_name': '/home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin_ccsd-train.npz', 'key_mapping': {'z': 'atomic_numbers', 'E': 'total_energy', 'F': 'forces', 'R': 'pos'}, 'npz_fixed_field_keys': ['atomic_numbers'], 'chemical_symbol_to_type': {'H': 0, 'C': 1, 'O': 2}, 'optimizer_params': {'amsgrad': False, 'betas': (0.9, 0.999), 'eps': 1e-08, 'weight_decay': 0.0}, 'lr_scheduler_patience': 50, 'lr_scheduler_factor': 0.5, 'early_stopping_upper_bounds': {'cumulative_wall': 604800.0}, 'early_stopping_lower_bounds': {'LR': 1e-05}, 'early_stopping_patiences': {'validation_loss': 100}, 'torch_version': '1.10.1+cu111', 'e3nn_version': '0.4.4', 'nequip_version': '0.5.6', 'code_commits': {'nequip': '535db80a35e89381d6892da2c79fcacacdeea519'}, 'dataset_extra_fixed_fields': {'r_max': 6.0}, 'num_types': 3, 'type_names': ['H', 'C', 'O'], 'var_num_neighbors': 2.5436885356903076, 'irreps_edge_sh': '1x0e+1x1o+1x2e', 'nonscalars_include_parity': True}, 'best_metrics': inf, 'best_epoch': 0, 'iepoch': -1, 'loss': <nequip.train.loss.Loss object at 0x2afc4609bcd0>, 'loss_stat': <nequip.train.loss.LossStat object at 0x2afb3e9509a0>, '_remove_from_model_input': {'stress', 'virial', 'partial_forces', 'forces', 'total_energy', 'atomic_energy'}, '_init_callbacks': [], '_end_of_epoch_callbacks': [], '_end_of_batch_callbacks': [], '_end_of_train_callbacks': [], '_final_callbacks': [], 'dataset_train': NpzDataset(950), 'dataset_val': NpzDataset(50), 'dl_train': <nequip.data.dataloader.DataLoader object at 0x2afc4609bd90>, 'dl_val': <nequip.data.dataloader.DataLoader object at 0x2afc460688b0>}
+
+
+
+
+
