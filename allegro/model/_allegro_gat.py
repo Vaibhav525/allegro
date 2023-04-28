@@ -81,6 +81,8 @@ def Allegro(config, initialize: bool, dataset: Optional[AtomicDataset] = None):
             ),
         ),
         "edge_eng": (
+            # ScalarMLP,
+            # dict(field=EDGE_FEATURES, out_field=EDGE_ENERGY, mlp_output_dimension=1),
             ScalarMLPGAT,
             dict(field=EDGE_FEATURES, out_field=EDGE_ENERGY, mlp_output_dimension=1),
         ),

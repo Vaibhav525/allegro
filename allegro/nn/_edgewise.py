@@ -96,10 +96,12 @@ class EdgewiseEnergySum(GraphModuleMixin, torch.nn.Module):
             self.register_buffer("per_edge_scales", torch.Tensor())
 
     def forward(self, data: AtomicDataDict.Type) -> AtomicDataDict.Type:
-        edge_center = data[AtomicDataDict.EDGE_INDEX_KEY][0]
-        edge_neighbor = data[AtomicDataDict.EDGE_INDEX_KEY][1]
+        # import pdb as pdb
+        # pdb.set_trace()
+        edge_center = data[AtomicDataDict.EDGE_INDEX_KEY][0] # torch.Size([1808]) 'edge_index' tensor([  0,   0,   0,  ..., 104, 104, 104], device='cuda:0')
+        edge_neighbor = data[AtomicDataDict.EDGE_INDEX_KEY][1] # torch.Size([1808]) 'edge_index'  tensor([  9,   1,   2,  ..., 102,  93, 103], device='cuda:0')
 
-        edge_eng = data[_keys.EDGE_ENERGY]
+        edge_eng = data[_keys.EDGE_ENERGY] # 'edge_energy' (Pdb) edge_eng.shape torch.Size([1808, 1])
         species = data[AtomicDataDict.ATOM_TYPE_KEY].squeeze(-1)
         center_species = species[edge_center]
         neighbor_species = species[edge_neighbor]
@@ -109,8 +111,8 @@ class EdgewiseEnergySum(GraphModuleMixin, torch.nn.Module):
                 center_species, neighbor_species
             ].unsqueeze(-1)
 
-        atom_eng = scatter(edge_eng, edge_center, dim=0, dim_size=len(species))
-        factor: Optional[float] = self._factor  # torchscript hack for typing
+        atom_eng = scatter(edge_eng, edge_center, dim=0, dim_size=len(species)) # torch.Size([105, 1])
+        factor: Optional[float] = self._factor  # torchscript hack for typing # 0.2410420448965754
         if factor is not None:
             atom_eng = atom_eng * factor
 

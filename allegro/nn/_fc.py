@@ -55,6 +55,7 @@ class ScalarMLP(GraphModuleMixin, torch.nn.Module):
         self.irreps_out[self.out_field] = o3.Irreps(
             [(self._module.out_features, (0, 1))]
         )
+        
 
     def forward(self, data: AtomicDataDict.Type) -> AtomicDataDict.Type:
         data[self.out_field] = self._module(data[self.field])
