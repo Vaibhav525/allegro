@@ -13,7 +13,7 @@
 #root: results/aspirin
 root: /home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin
 
-run_name: example_gat2fast_1024_28_03_23
+run_name: example_gat2fast_30_04_2023_n_heads4
 
 # model initialization seed
 seed: 123456
@@ -30,7 +30,7 @@ default_dtype: float32
 # -- network --
 # tell nequip which modules to build
 model_builders:
- - allegro.model.Allegro
+ - allegro.model.Allegrogat
  # the typical model builders from `nequip` can still be used:
  - PerSpeciesRescale
  - ForceOutput

@@ -26,7 +26,7 @@ from allegro._keys import EDGE_FEATURES, EDGE_ENERGY
 from nequip.model import builder_utils
 
 
-def Allegro(config, initialize: bool, dataset: Optional[AtomicDataset] = None):
+def Allegrogat(config, initialize: bool, dataset: Optional[AtomicDataset] = None):
     logging.debug("Building Allegro model...")
 
     # Handle avg num neighbors auto

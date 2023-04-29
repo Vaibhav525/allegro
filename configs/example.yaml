@@ -13,10 +13,10 @@
 #root: results/aspirin
 root: /home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin
 
-run_name: example_15hrs_28_03_23
+run_name: example_30_04_23_123458
 
 # model initialization seed
-seed: 123456
+seed: 123458
 
 # data set seed, determines which data to sample from file
 dataset_seed: 123456
