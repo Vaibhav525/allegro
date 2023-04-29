@@ -81,7 +81,7 @@ def Allegro(config, initialize: bool, dataset: Optional[AtomicDataset] = None):
             ),
         ),
         "edge_eng": (
-            ScalarMLPGAT,
+            ScalarMLP,
             dict(field=EDGE_FEATURES, out_field=EDGE_ENERGY, mlp_output_dimension=1),
         ),
         # Sum edgewise energies -> per-atom energies:

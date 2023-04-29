@@ -44,7 +44,7 @@ class ScalarMLPGAT(GraphModuleMixin, torch.nn.Module):
         assert self.irreps_in[self.field][0].ir == (0, 1)  # scalars
         in_dim = self.irreps_in[self.field][0].mul
         
-        self.gat_model = GATModel2fast(8,8)#.to(self.device)
+        self.gat_model = GATModel2fast(1024,1024)#.to(self.device)
         self._module = ScalarMLPFunction(
             mlp_input_dimension=in_dim,
             mlp_latent_dimensions=mlp_latent_dimensions,
@@ -60,9 +60,9 @@ class ScalarMLPGAT(GraphModuleMixin, torch.nn.Module):
         
 
     def forward(self, data: AtomicDataDict.Type) -> AtomicDataDict.Type:
-        print("gat_applied")
-        data["edge_embedding"]  = self.gat_model(data["edge_embedding"], data["edge_index"])
-        data[self.out_field] = self._module(data[self.field])
+        #print("gat_applied")
+        data["edge_features"]  = self.gat_model(data["edge_features"], data["edge_index"])
+        data[self.out_field] = self._module(data[self.field]) # self.field is  #edge_features
         return data
 
 
@@ -124,7 +124,7 @@ class GATModel2(torch.nn.Module):
         Returns: new_node_features after attention
 
         """
-        num_edges = edge_index.shape[1]
+        num_edges = edge_index.shape[1] # 2,1880
         edge_connections = set()
 
         for i in range(num_edges):
@@ -133,6 +133,8 @@ class GATModel2(torch.nn.Module):
                 (edge_index[1, i] == edge_index[0, j]) or (edge_index[1, i] == edge_index[1, j]):
                     edge_connections.add((i, j))
                     edge_connections.add((j, i))
+        
+        # ab edge --> ac 
 
         #new_edge_index = torch.tensor(list(edge_connections), dtype=torch.long).t().contiguous().to(device)
         artificial_edge_index = torch.tensor(list(edge_connections), dtype=torch.long).t().contiguous().to(device)
@@ -163,21 +165,21 @@ class GATModel2fast(torch.nn.Module):
 
         """
         num_edges = edge_index.shape[1]
+
+        # Remove self-loops from the edge_index
+        self_loop_mask = edge_index[0] != edge_index[1]
+        edge_index = edge_index[:, self_loop_mask]
+        num_edges = edge_index.shape[1]
+
         # Create a boolean tensor with shape [num_edges, num_edges]
-        # Each element at position (i, j) is True if edge i and edge j share a node
-        bool_tensor = (edge_index[0, :].view(-1, 1) == edge_index[0, :].view(1, -1)) | \
-                    (edge_index[0, :].view(-1, 1) == edge_index[1, :].view(1, -1)) | \
-                    (edge_index[1, :].view(-1, 1) == edge_index[0, :].view(1, -1)) | \
-                    (edge_index[1, :].view(-1, 1) == edge_index[1, :].view(1, -1))
+        # Each element at position (i, j) is True if edge i (n_ab) and edge j (n_cd) share the same 'a' (first node)
+        bool_tensor = (edge_index[0, :].view(-1, 1) == edge_index[0, :].view(1, -1))
 
         # Set the diagonal elements of bool_tensor to False
         bool_tensor[torch.eye(num_edges, dtype=torch.bool)] = False
 
         # Create a mask to extract the upper triangular part (excluding the diagonal)
         mask = torch.triu(torch.ones_like(bool_tensor, dtype=torch.bool), diagonal=1)
-
-        # Apply the mask to bool_tensor to obtain the desired connections
-        
 
         artificial_edge_index = torch.nonzero(bool_tensor & mask, as_tuple=False).T.contiguous().to(device)#torch.Size([2, 3616])
         # artificial_edge_index -> shape torch.Size([2, 3616])

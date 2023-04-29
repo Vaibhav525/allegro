@@ -58,7 +58,9 @@ class ScalarMLP(GraphModuleMixin, torch.nn.Module):
         
 
     def forward(self, data: AtomicDataDict.Type) -> AtomicDataDict.Type:
-        data[self.out_field] = self._module(data[self.field])
+        # import pdb as pdb
+        # pdb.set_trace()
+        data[self.out_field] = self._module(data[self.field]) #edge_features
         return data
 
 

@@ -13,7 +13,7 @@
 #root: results/aspirin
 root: /home/sire/phd/srz228573/benchmarking_datasets/allegro_data/aspirin
 
-run_name: example_gat2fast_28_03_23
+run_name: example_gat2fast_1024_28_03_23
 
 # model initialization seed
 seed: 123456
